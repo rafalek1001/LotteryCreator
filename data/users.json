@@ -3,30 +3,30 @@
     "id": 1,
     "name": "Osoba1",
     "image": "imgs/P1.png",
-    "odds": 10
+    "odds": 28
   },
   {
     "id": 2,
     "name": "Osoba2",
     "image": "imgs/P2.png",
-    "odds": 20
+    "odds": 5
   },
   {
     "id": 3,
     "name": "Osoba3",
     "image": "imgs/P3.png",
-    "odds": 30
+    "odds": 2
   },
   {
     "id": 4,
     "name": "Osoba4",
     "image": "imgs/P4.png",
-    "odds": 35
+    "odds": 5
   },
   {
     "id": 5,
     "name": "Osoba5",
     "image": "imgs/P5.png",
-    "odds": 5
+    "odds": 60
   }
 ]

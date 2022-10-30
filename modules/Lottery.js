@@ -7,6 +7,7 @@ const lotteryBtn = document.getElementsByClassName('lottery-btn');
 const lotteryContainer = document.getElementsByClassName('lottery-container');
 const lotteryBackground = document.getElementsByClassName('lottery-background');
 const lotteryWinner = document.getElementsByClassName('lottery-winner');
+const lotteryOdds = document.getElementsByClassName('lottery-odds');
 const lotterySpeedModeBtns = document.getElementsByClassName('lottery-speed-btn');
 
 const lotterySoundSlow = new Audio('../sounds/lotterySlow.mp3');
@@ -67,6 +68,8 @@ export class Lottery {
   
     lotteryWinner[0].textContent = '';
     lotteryWinner[0].classList.remove('lottery-winner-fadein');
+    lotteryOdds[0].textContent = '';
+    lotteryOdds[0].classList.remove('lottery-odds-fadein');
 
     // Removal of background image (question marks)
     if (lotteryBackground.length > 0) {
@@ -83,14 +86,16 @@ export class Lottery {
       }
     }
 
-    // Creating lottery picks
+    // Creating raw lottery picks
     for (let i = 0; i < this.users.length; i++) {
       for (let j = 0; j < this.users[i].odds; j++) {
         this.choosens.push(this.users[i]);
       }
     }
 
+    // Shuffle array of picks
     this.choosens = shuffleArray(this.choosens);
+    console.log(this.choosens);
 
     for (let i = 0; i < this.choosens.length; i++) {
       const item = document.createElement('div');
@@ -106,22 +111,23 @@ export class Lottery {
       item.appendChild(itemImg);
     }
 
-    console.log(this.choosens);
-
     this.setWinner();
 
     const lotteryItems = document.getElementsByClassName('lottery-item');
 
+    // One second fade-in picks
     for (const lotteryItem of lotteryItems) {
       lotteryItem.classList.add('lottery-item-animation-fadein');
       setTimeout(() => {
         let root = document.documentElement;
+        // Randomly draws where the bar will stop on the element
         const number = getRndInteger(0, 11);
         root.style.setProperty('--animation-name', `scrollItems${number}`);
         lotteryItem.classList.add('lottery-item-animation-scroll');
       }, 1000);
     }
 
+    // Enable lottery button
     setTimeout(() => {
       lotteryBtn[0].removeAttribute('disabled');
 
@@ -131,14 +137,18 @@ export class Lottery {
 
       this.setCongratulations();
 
+      // Fade-in congratulations message and odds message
       lotteryWinner[0].classList.add('lottery-winner-fadein');
+      lotteryOdds[0].classList.add('lottery-odds-fadein');
 
+      // Red frame for the winner
       const lotteryItemWinner = document.querySelector('.lottery-container div:nth-of-type(71)');
       lotteryItemWinner.classList.add('lottery-item-winner');
 
       this.choosens = [];
     }, this.getSpeed() * 1000 + 2000);
 
+    // Possibility of next lottery
     nextLottery = true;
   }
 
@@ -178,5 +188,6 @@ export class Lottery {
   setCongratulations() {
     const number = getRndInteger(1, this.winnerCongratulations.length + 1);
     lotteryWinner[0].textContent = `${this.getWinner().name}${this.winnerCongratulations[number - 1].text}`;
+    lotteryOdds[0].textContent = `Było na to ${this.getWinner().odds}% szans.`;
   }
 }

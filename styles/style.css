@@ -138,12 +138,12 @@ html, body {
   transition: border 1s ease-out;
 }
 
-.lottery-winner {
+.lottery-winner, .lottery-odds {
   text-align: center;
   margin-top: 30px;
 }
 
-.lottery-winner-fadein {
+.lottery-winner-fadein, .lottery-odds-fadein {
   animation-name: fadeInItems;
   animation-duration: 2s;
   animation-fill-mode: forwards;
