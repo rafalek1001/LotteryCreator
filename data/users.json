@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "Osoba1",
+    "image": "imgs/P1.png"
+  },
+  {
+    "id": 2,
+    "name": "Osoba2",
+    "image": "imgs/P2.png"
+  },
+  {
+    "id": 3,
+    "name": "Osoba3",
+    "image": "imgs/P3.png"
+  },
+  {
+    "id": 4,
+    "name": "Osoba4",
+    "image": "imgs/P4.png"
+  },
+  {
+    "id": 5,
+    "name": "Osoba5",
+    "image": "imgs/P5.png"
+  }
+]

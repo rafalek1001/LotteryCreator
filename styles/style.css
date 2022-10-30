@@ -1,0 +1,246 @@
+@keyframes fadeInItems {
+  0% { opacity: 0%; }
+  100% { opacity: 100%; }
+}
+
+@keyframes scrollItems0 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-6653%); }
+}
+
+@keyframes scrollItems1 {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-6660%); }
+}
+
+@keyframes scrollItems2 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-6670%); }
+}
+
+@keyframes scrollItems3 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-6680%); }
+}
+
+@keyframes scrollItems4 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-6690%); }
+}
+
+@keyframes scrollItems5 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-6700%); }
+}
+
+@keyframes scrollItems6 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-6710%); }
+}
+
+@keyframes scrollItems7 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-6720%); }
+}
+
+@keyframes scrollItems8 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-6730%); }
+}
+
+@keyframes scrollItems9 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-6740%); }
+}
+
+@keyframes scrollItems10 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-6747%); }
+}
+
+:root {
+  --animation-name: scrollItems1;
+  --animation-duration: 8s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.title {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.lottery-container-line {
+  height: 100px;
+  margin-top: -80px;
+}
+
+.lottery-container {
+  display: flex;
+  width: 560px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 4px solid black;
+  overflow: hidden;
+}
+
+.lottery-background {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lottery-line {
+  position: relative;
+  left: 50%;
+  transform: translateY(104.5%);
+  width: 1px;
+  height: 92px;
+  border: 4px solid gold;
+  z-index: 999;
+}
+
+.lottery-item {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 80px;
+  border: 4px solid red;
+  overflow: hidden;
+}
+
+.lottery-item-animation-fadein {
+  animation-name: fadeInItems;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+.lottery-item-animation-scroll {
+  animation-name: var(--animation-name);
+  animation-duration: var(--animation-duration);
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-delay: 1s;
+}
+
+.lottery-item-winner {
+  border: 4px solid cyan;
+  transition: border 1s ease-out;
+}
+
+.lottery-winner {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.lottery-winner-fadein {
+  animation-name: fadeInItems;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+.lottery-btn-container {
+  width: 300px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lottery-btn {
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+  padding: 10px 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lottery-btn:hover {
+  background-color: greenyellow;
+  cursor: pointer;
+}
+
+.lottery-btn:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.lottery-btn:active {
+  transform: scale(0.98);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+
+.lottery-speed {
+  width: 300px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lottery-speed-btn {
+  display: inline-block;
+  font-size: 10px;
+  margin: 10px;
+  padding: 2px 5px;
+}
+
+.lottery-speed-btn:hover {
+  cursor: pointer;
+}
+
+.lottery-speed-btn:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.lottery-speed-btn:active {
+  transform: scale(0.98);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+
+.lottery-speed-btn-on {
+  border: 3px solid purple;
+}
+
+.lottery-odds {
+  width: 300px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lottery-odds-btn {
+  display: inline-block;
+  font-size: 10px;
+  margin: 10px;
+  padding: 2px 5px;
+}
+
+.lottery-odds-btn:hover {
+  cursor: pointer;
+}
+
+.lottery-odds-btn:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.lottery-odds-btn:active {
+  transform: scale(0.98);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+
+.lottery-odds-btn-on {
+  border: 3px solid purple;
+}
