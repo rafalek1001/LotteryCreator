@@ -1,4 +1,5 @@
 import { getRndInteger } from "../utilities/getRndInteger.js";
+import { shuffleArray } from "../utilities/shuffleArray.js";
 import users from "../data/users.json" assert {type: 'json'};
 import congratulations from "../data/congratulations.json" assert {type: 'json'}
 
@@ -7,18 +8,17 @@ const lotteryContainer = document.getElementsByClassName('lottery-container');
 const lotteryBackground = document.getElementsByClassName('lottery-background');
 const lotteryWinner = document.getElementsByClassName('lottery-winner');
 const lotterySpeedModeBtns = document.getElementsByClassName('lottery-speed-btn');
-const lotteryOddsModeBtns = document.getElementsByClassName('lottery-odds-btn');
 
 const lotterySoundSlow = new Audio('../sounds/lotterySlow.mp3');
 const lotterySoundMedium = new Audio('../sounds/lotteryMedium.mp3');
 const lotterySoundFast = new Audio('../sounds/lotteryFast.mp3');
 
+// Switch for the next lottery
 let nextLottery = false;
 
 export class Lottery {
-  constructor(speed, odds) {
+  constructor(speed) {
     this.speed = speed;
-    this.odds = odds;
     this.winner = {};
 
     this.users = users;
@@ -29,8 +29,23 @@ export class Lottery {
   }
 
   runLottery() {
+    // Check sum of probability - if sum (of users.odds) is not 100% stop the lottery and throw error
+    let percentageSum = 0;
+    
+    for (let i = 0; i < this.users.length; i++) {
+      percentageSum += this.users[i].odds;
+    }
+
+    if (percentageSum !== 100) {
+      lotteryWinner[0].style.color = "red";
+      lotteryWinner[0].textContent = `Suma prawdopodobieństwa nie jest równa 100%!`;
+      return;
+    };
+
+    // Disabling the lottery button for the duration of the lottery
     lotteryBtn[0].setAttribute('disabled', 'true');
 
+    // Check the speed mode and adjust the appropriate sound
     if (this.getSpeed() === 20) {
       lotterySoundSlow.pause();
       lotterySoundSlow.currentTime = 0;
@@ -45,6 +60,7 @@ export class Lottery {
       lotterySoundFast.play();
     }
 
+    // Disabling the speed mode button for the duration of the lottery
     for (const lotterySpeedModeBtn of lotterySpeedModeBtns) {
       lotterySpeedModeBtn.setAttribute('disabled', 'true');
     }
@@ -52,10 +68,12 @@ export class Lottery {
     lotteryWinner[0].textContent = '';
     lotteryWinner[0].classList.remove('lottery-winner-fadein');
 
+    // Removal of background image (question marks)
     if (lotteryBackground.length > 0) {
       lotteryContainer[0].removeChild(lotteryBackground[0]);
     }
   
+    // Removal of images of the old lottery
     if (nextLottery) {
       let lotteryItems = document.getElementsByClassName('lottery-item');
       lotteryItems = Array.from(lotteryItems);
@@ -65,29 +83,30 @@ export class Lottery {
       }
     }
 
-    for (let i = 0; i < 80; i++) {
+    // Creating lottery picks
+    for (let i = 0; i < this.users.length; i++) {
+      for (let j = 0; j < this.users[i].odds; j++) {
+        this.choosens.push(this.users[i]);
+      }
+    }
+
+    this.choosens = shuffleArray(this.choosens);
+
+    for (let i = 0; i < this.choosens.length; i++) {
       const item = document.createElement('div');
       item.classList.add('lottery-item');
-
       const itemImg = document.createElement('img');
 
-      const number = getRndInteger(1, this.getOdds() + this.users.length);
-
-      if ((number - 1) < this.users.length) {
-        itemImg.setAttribute('src', `${this.users[number - 1].image}`);
-        item.setAttribute('name', `${this.users[number - 1].name}`);
-        this.choosens.push(this.users[number - 1]);
-      } else {
-        itemImg.setAttribute('src', `${this.users[0].image}`);
-        item.setAttribute('name', `${this.users[0].name}`);
-        this.choosens.push(this.users[0]);
-      }
+      itemImg.setAttribute('src', `${this.choosens[i].image}`);
+      item.setAttribute('name', `${this.choosens[i].name}`);
 
       itemImg.setAttribute('width', '76');
 
       lotteryContainer[0].appendChild(item);
       item.appendChild(itemImg);
     }
+
+    console.log(this.choosens);
 
     this.setWinner();
 
@@ -146,28 +165,6 @@ export class Lottery {
 
     let root = document.documentElement;
     root.style.setProperty('--animation-duration', `${this.speed}s`);
-  }
-
-  getOdds() {
-    return this.odds;
-  }
-
-  setOdds(odds) {
-    if (odds === 1) {
-      lotteryOddsModeBtns[0].classList.add('lottery-odds-btn-on');
-      lotteryOddsModeBtns[1].classList.remove('lottery-odds-btn-on');
-      lotteryOddsModeBtns[2].classList.remove('lottery-odds-btn-on');
-    } else if (odds === 10) {
-      lotteryOddsModeBtns[1].classList.add('lottery-odds-btn-on');
-      lotteryOddsModeBtns[0].classList.remove('lottery-odds-btn-on');
-      lotteryOddsModeBtns[2].classList.remove('lottery-odds-btn-on');
-    } else if (odds === 100) {
-      lotteryOddsModeBtns[2].classList.add('lottery-odds-btn-on');
-      lotteryOddsModeBtns[0].classList.remove('lottery-odds-btn-on');
-      lotteryOddsModeBtns[1].classList.remove('lottery-odds-btn-on');
-    }
-
-    this.odds = odds;
   }
 
   getWinner() {

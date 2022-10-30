@@ -2,26 +2,31 @@
   {
     "id": 1,
     "name": "Osoba1",
-    "image": "imgs/P1.png"
+    "image": "imgs/P1.png",
+    "odds": 10
   },
   {
     "id": 2,
     "name": "Osoba2",
-    "image": "imgs/P2.png"
+    "image": "imgs/P2.png",
+    "odds": 20
   },
   {
     "id": 3,
     "name": "Osoba3",
-    "image": "imgs/P3.png"
+    "image": "imgs/P3.png",
+    "odds": 30
   },
   {
     "id": 4,
     "name": "Osoba4",
-    "image": "imgs/P4.png"
+    "image": "imgs/P4.png",
+    "odds": 35
   },
   {
     "id": 5,
     "name": "Osoba5",
-    "image": "imgs/P5.png"
+    "image": "imgs/P5.png",
+    "odds": 5
   }
 ]
